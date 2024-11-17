@@ -18,6 +18,15 @@ struct s_result
 typedef char Result;
 typedef Result[5] Results;
 
+Results checkword(char *guess, char *word){
+    Results res;
+    int i;
+
+    for (i=0; i<5;i++) {
+        res[i]= checkchar(guess[i],i,word);
+    }
+    return res;
+}
 Result checkchar(char, int, char *);
 
 int main();
@@ -26,11 +35,11 @@ Result checkchar(char guess,  int idx, char *word)
 {
     char correct;
     correct = word[idx];
-    switch (word[idx]) {
+    switch (guess) {
         case correct:
             return ResultGreen;
         default:
-            if (isin(correct, word))
+            if (isin(guess, word))
                 return ResultYellow;
     }
     return ResultRed;
