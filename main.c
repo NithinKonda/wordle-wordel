@@ -16,17 +16,16 @@ struct s_result
 }
 
 typedef char Result;
-typedef Result[5] Results;
 
-void Example_printing_the_results(Results);
+void Example_printing_the_results(Result*);
 
-Results checkword(char *, char *);
+Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char**);
 
 
-void Example_printing_the_results(Results res) {
+void Example_printing_the_results[](Result[] res) {
     int i;
     for (i=0; i<5; i++) 
         switch(res[i]) {
@@ -45,22 +44,30 @@ void Example_printing_the_results(Results res) {
 
     }
 }
+
+
+bool isin(char guess, char *word){
+    int i;
+    for (i=0; i<5; i++){
+        if (guess == word[i])
+            return true;
+    }
+    return false;
+}
 Result checkchar(char guess,  int idx, char *word)
 {
     char correct;
     correct = word[idx];
-    switch (guess) {
-        case correct:
-            return ResultGreen;
-        default:
-            if (isin(guess, word))
-                return ResultYellow;
+    if (guess == correct){
+        return ResultGreen;
     }
+        else if (isin(guess, word))
+                return ResultYellow;
     return ResultRed;
     
 }
-Results checkword(char *guess, char *word){
-    Results res;
+Result *checkword(char *guess, char *word){
+    Result res[5];
     int i;
 
     for (i=0; i<5;i++) {
@@ -72,7 +79,7 @@ Results checkword(char *guess, char *word){
 int main(int argc, char *argv[])
 {
     char *correct, *guess;
-    Results res;
+    Result res[5];
     if (argc < 3) {
         fprintf(stderr,
         "Usage: %s THE WORD IS CORRECT",argv[0]
