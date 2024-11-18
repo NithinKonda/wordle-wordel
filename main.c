@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     Result *res;
     if (argc < 3) {
         fprintf(stderr,
-        "Usage: %s THE WORD IS CORRECT\n",argv[0]
+        "Usage: %s THE WORD IS CORRECT/WRONG \n",argv[0]
         );
         return -1;
     }
