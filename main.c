@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #define ResultGreen 1
 #define ResultYellow 2
 #define ResultRed 5
@@ -9,23 +10,24 @@
 // struct s_word {
 //     char word[8];
 // }
+typedef char Result;
 
 struct s_result
 {
     char color[5];
-}
+};
 
-typedef char Result;
 
-void Example_printing_the_results(Result*);
 
+bool isin(char, char*);
+void Example_printing_the_results(Result[]);
 Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char**);
 
 
-void Example_printing_the_results[](Result[] res) {
+void Example_printing_the_results(Result res[]) {
     int i;
     for (i=0; i<5; i++) 
         switch(res[i]) {
@@ -46,13 +48,22 @@ void Example_printing_the_results[](Result[] res) {
 }
 
 
-bool isin(char guess, char *word){
-    int i;
-    for (i=0; i<5; i++){
-        if (guess == word[i])
-            return true;
+bool isin(char c, char *str){
+    int i,size;
+    bool ret;
+    ret = false;
+    size = strlen(str);
+
+    for(i=0;i<size;i=i+1)
+    {
+        if (str[i] == c){
+            ret = true;
+            break;
+        }
+
+
     }
-    return false;
+    return ret;
 }
 Result checkchar(char guess,  int idx, char *word)
 {
@@ -67,7 +78,7 @@ Result checkchar(char guess,  int idx, char *word)
     
 }
 Result *checkword(char *guess, char *word){
-    Result res[5];
+    static Result res[5];
     int i;
 
     for (i=0; i<5;i++) {
@@ -79,10 +90,10 @@ Result *checkword(char *guess, char *word){
 int main(int argc, char *argv[])
 {
     char *correct, *guess;
-    Result res[5];
+    Result *res;
     if (argc < 3) {
         fprintf(stderr,
-        "Usage: %s THE WORD IS CORRECT",argv[0]
+        "Usage: %s THE WORD IS CORRECT\n",argv[0]
         );
         return -1;
     }
