@@ -23,12 +23,12 @@ void Example_printing_the_results(Results);
 Results checkword(char *, char *);
 Result checkchar(char, int, char *);
 
-int main();
+int main(int, char**);
 
 
 void Example_printing_the_results(Results res) {
     int i;
-    for (i=0; i<5; i++) {
+    for (i=0; i<5; i++) 
         switch(res[i]) {
             case ResultGreen:
                 printf("%s\n","Green");
@@ -42,7 +42,7 @@ void Example_printing_the_results(Results res) {
             default:
                 printf("Unknown %d\n",res[i]);
                 break;
-        }
+
     }
 }
 Result checkchar(char guess,  int idx, char *word)
@@ -69,8 +69,22 @@ Results checkword(char *guess, char *word){
     return res;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    printf("abc\n");
+    char *correct, *guess;
+    Results res;
+    if (argc < 3) {
+        fprintf(stderr,
+        "Usage: %s THE WORD IS CORRECT",argv[0]
+        );
+        return -1;
+    }
+
+
+    correct = argv[1];
+    guess = argv[2];
+
+    res = checkword(correct, guess);
+    Example_printing_the_results(res);
     return 0;
 }
