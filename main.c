@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     correct = argv[1];
     guess = argv[2];
 
-    res = checkword(correct, guess);
+    res = checkword(guess, correct);
     Example_printing_the_results(res);
     return 0;
 }
