@@ -77,6 +77,15 @@ Result checkchar(char guess,  int idx, char *word)
     return ResultRed;
     
 }
+
+int readfile(char *filename, int max) {
+
+
+
+
+
+
+}
 Result *checkword(char *guess, char *word){
     static Result res[5];
     int i;
