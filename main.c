@@ -6,6 +6,7 @@
 #define ResultGreen 1
 #define ResultYellow 2
 #define ResultRed 5
+#define max 5195
 
 // struct s_word {
 //     char word[8];
@@ -15,16 +16,16 @@ typedef char Result;
 struct s_words
 {
     char **arr;
-    int ren;
+    int n;
 
-}
+};
 
-typedef struct s_result Words;
+
 struct s_result
 {
     char color[5];
 };
-
+typedef struct s_words Words;
 bool isin(char, char *);
 void Example_printing_the_results(Result[]);
 Result *checkword(char *, char *);
@@ -83,19 +84,19 @@ Result checkchar(char guess, int idx, char *word)
     return ResultRed;
 }
 
-Words readfile(char *filename, int max)
+Words readfile(char *filename)
 {
 
     char buf[8];
     int i, size;
     FILE *fd;
-    char *ret[5];
+    static char ret[max][5];
     Words words;
     fd = fopen(filename, "r");
     if (!fd)
     {
         perror("fopen");
-        words = {
+        Words words = {
             .arr = (char **)0,
             .n=0
         };
@@ -103,20 +104,7 @@ Words readfile(char *filename, int max)
     }
 
     size = max * 5;
-    ret = (char **)malloc(size);
-    if (!ret)
-    {
-        fclose(fd);
-        perror("malloc");
 
-        return (char **)0;
-        words = {
-            .arr = (char **)0,
-            .n=0
-        };
-        i = 0;
-        return words;
-    }
         i=0;
         memset(buf, 0, 8);
         while (fgets(buf, 7, fd))
@@ -143,19 +131,17 @@ Words readfile(char *filename, int max)
             ret[i][4] = buf[4];
 
             memset(buf, 0, 8);
-            n++;
+            i++;
 
-            if (max <= n)
+            if (max <= i)
             {
                 break;
             }
         }
 
         fclose(fd);
-        words = {
-            .arr = ret,
-            .n =i
-        };
+        words.arr = (char **)&ret;
+        words.n = i;
 
         return words;
 
