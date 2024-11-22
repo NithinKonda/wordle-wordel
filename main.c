@@ -12,6 +12,15 @@
 // }
 typedef char Result;
 
+
+struct s_words {
+    char **arr;
+    int ren;
+
+}
+
+
+typedef struct s_result Words;
 struct s_result
 {
     char color[5];
@@ -78,12 +87,13 @@ Result checkchar(char guess,  int idx, char *word)
     
 }
 
-char readfile(char *filename, int max) {
+Words readfile(char *filename, int max) {
 
 char buf[8];
 int i,size;
 FILE *fd;
 char *ret[5];
+Words words;
 fd = fopen(filename, "r");
 if (!fd) {
     perror("fopen");
