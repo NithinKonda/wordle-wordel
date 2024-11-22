@@ -78,10 +78,18 @@ Result checkchar(char guess,  int idx, char *word)
     
 }
 
-int readfile(char *filename, int max) {
+char readfile(char *filename, int max) {
 
+char buf[8];
+int i;
+FILE *fd;
+char **ret;
 
-
+fd = fopen(filename, "r");
+if (!fd) {
+    perror("fopen");
+    return -1;
+}
 
 
 
