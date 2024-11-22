@@ -81,17 +81,62 @@ Result checkchar(char guess,  int idx, char *word)
 char readfile(char *filename, int max) {
 
 char buf[8];
-int i;
+int i,size;
 FILE *fd;
-char **ret;
-
+char *ret[5];
 fd = fopen(filename, "r");
 if (!fd) {
     perror("fopen");
-    return -1;
+    return (char **)0;
 }
 
 
+size = max*5;
+ret = (char **)malloc(size);
+if(!ret) {
+    fclose(fd);
+    perror("malloc");
+    
+
+    return (char **)0;
+
+    i=0;
+
+    memset(buf,0,8);
+    while (fgets(buf, 7, fd)) {
+        size = strlen(buf);
+        if (size < 1) {
+            memset(buf,0,8);
+            continue;
+        }
+
+
+
+        size--;
+        buf[size]=0;
+
+        if (size != 0) {
+            memset(buf, 0,8);
+            continue;
+        }
+        ret[i][0]=buf[0];
+        ret[i][1]=buf[1];
+        ret[i][2]=buf[2];
+        ret[i][3]=buf[3];
+        ret[i][4]=buf[4];
+
+        memset(buf,0,8);
+        n++;
+
+
+
+        if(max <= n){
+            break;
+        }
+    }
+
+    fclose(fd);
+}
 
 }
 Result *checkword(char *guess, char *word){
