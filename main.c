@@ -160,19 +160,8 @@ Result *checkword(char *guess, char *word)
 
 int main(int argc, char *argv[])
 {
-    char *correct, *guess;
-    Result *res;
-    if (argc < 3)
-    {
-        fprintf(stderr,
-                "Usage: %s THE WORD IS CORRECT/WRONG \n", argv[0]);
-        return -1;
-    }
-
-    correct = argv[1];
-    guess = argv[2];
-
-    res = checkword(guess, correct);
-    Example_printing_the_results(res);
+    Words words;
+    words = readfile("wordlist.txt");
     return 0;
+
 }
