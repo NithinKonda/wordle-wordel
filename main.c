@@ -13,19 +13,13 @@
 // }
 typedef char Result;
 
-struct s_words
-{
-    char **arr;
-    int n;
-
-};
-
 
 struct s_result
 {
     char color[5];
 };
-typedef struct s_words Words;
+
+int readfile(char*);
 bool isin(char, char *);
 void Example_printing_the_results(Result[]);
 Result *checkword(char *, char *);
@@ -84,24 +78,20 @@ Result checkchar(char guess, int idx, char *word)
     return ResultRed;
 }
 
-Words readfile(char *filename)
+static char words[max][5];
+int readfile(char *filename)
 {
 
     char buf[8];
     int i, size;
     FILE *fd;
-    static char ret[max][5];
-    Words words;
     fd = fopen(filename, "r");
     if (!fd)
     {
         perror("fopen");
-        Words words = {
-            .arr = (char **)0,
-            .n=0
-        };
-        return words;
-    }
+        return -1;
+   }
+
 
     size = max * 5;
 
@@ -124,11 +114,11 @@ Words readfile(char *filename)
                 memset(buf, 0, 8);
                 continue;
             }
-            ret[i][0] = buf[0];
-            ret[i][1] = buf[1];
-            ret[i][2] = buf[2];
-            ret[i][3] = buf[3];
-            ret[i][4] = buf[4];
+            words[i][0] = buf[0];
+            words[i][1] = buf[1];
+            words[i][2] = buf[2];
+            words[i][3] = buf[3];
+            words[i][4] = buf[4];
 
             memset(buf, 0, 8);
             i++;
@@ -140,10 +130,7 @@ Words readfile(char *filename)
         }
 
         fclose(fd);
-        words.arr = (char **)&ret;
-        words.n = i;
-
-        return words;
+        return i;
 
 }
 Result *checkword(char *guess, char *word)
@@ -160,8 +147,16 @@ Result *checkword(char *guess, char *word)
 
 int main(int argc, char *argv[])
 {
-    Words words;
-    words = readfile("wordlist.txt");
+    int n;
+    n = readfile("wl5.txt");
+    if(n < 0) {
+        printf("No words found\n");
+    }
+    else {
+        printf("Found %d words\n", n);
+        printf("nr 100: '%s'\n", words[100]);
+
+    }
     return 0;
 
 }
