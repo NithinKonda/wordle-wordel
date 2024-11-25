@@ -14,11 +14,16 @@
 typedef char Result;
 
 
+
 struct s_result
 {
     char color[5];
 };
 
+
+
+void seed(void);
+char *randomword(int);
 int readfile(char*);
 bool isin(char, char *);
 void Example_printing_the_results(Result[]);
@@ -51,7 +56,7 @@ void Example_printing_the_results(Result res[])
 
 char *randomword(int max) {
     int x;
-    char ret[8];
+    static char ret[8];
     x = rand() % max;
 
     ret[0] = words[x][0];
@@ -59,7 +64,9 @@ char *randomword(int max) {
     ret[2] = words[x][2];
     ret[3] = words[x][3];
     ret[4] = words[x][4];
-    ret[5] = 0;
+    ret[5] = 0; 
+
+    return ret;
 }
 
 bool isin(char c, char *str)
@@ -159,25 +166,27 @@ Result *checkword(char *guess, char *word)
     return res;
 }
 
+
+void seed()
+{
+    int x;
+    x= getpid();
+    srand(x);
+
+    return;
+}
+
+
 int main(int argc, char *argv[])
 {
     int n;
+    seed();
     n = readfile("wl5.txt");
     if(n < 0) {
         printf("No words found\n");
     }
     else {
-        printf("Found %d words\n", n);
-        printf("nr 100: ");
-        printf("%c", words[100][0]);
-
-        printf("%c", words[100][1]);
-        printf("%c", words[100][2]);
-        printf("%c", words[100][3]);
-        printf("%c", words[100][4]);
-        printf("\n");
-
-
+            printf("word %s \n", randomword(n));
     }
     return 0;
 
