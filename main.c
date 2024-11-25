@@ -31,7 +31,7 @@ Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char **);
-
+static char words[max][5];
 void Example_printing_the_results(Result res[])
 {
     int i;
@@ -54,10 +54,10 @@ void Example_printing_the_results(Result res[])
 }
 
 
-char *randomword(int max) {
+char *randomword(int m) {
     int x;
     static char ret[8];
-    x = rand() % max;
+    x = rand() % m;
 
     ret[0] = words[x][0];
     ret[1] = words[x][1];
@@ -99,7 +99,7 @@ Result checkchar(char guess, int idx, char *word)
     return ResultRed;
 }
 
-static char words[max][5];
+
 int readfile(char *filename)
 {
 
