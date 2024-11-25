@@ -48,6 +48,20 @@ void Example_printing_the_results(Result res[])
         }
 }
 
+
+char *randomword(int max) {
+    int x;
+    char ret[8];
+    x = rand() % max;
+
+    ret[0] = words[x][0];
+    ret[1] = words[x][1];
+    ret[2] = words[x][2];
+    ret[3] = words[x][3];
+    ret[4] = words[x][4];
+    ret[5] = 0;
+}
+
 bool isin(char c, char *str)
 {
     int i, size;
@@ -154,7 +168,15 @@ int main(int argc, char *argv[])
     }
     else {
         printf("Found %d words\n", n);
-        printf("nr 100: '%s'\n", words[100]);
+        printf("nr 100: ");
+        printf("%c", words[100][0]);
+
+        printf("%c", words[100][1]);
+        printf("%c", words[100][2]);
+        printf("%c", words[100][3]);
+        printf("%c", words[100][4]);
+        printf("\n");
+
 
     }
     return 0;
