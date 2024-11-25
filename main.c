@@ -109,7 +109,7 @@ int readfile(char *filename)
             size--;
             buf[size] = 0;
 
-            if (size != 0)
+            if (size != 5)
             {
                 memset(buf, 0, 8);
                 continue;
