@@ -12,19 +12,17 @@
 //     char word[8];
 // }
 typedef char Result;
-
-
+bool continuation;
 
 struct s_result
 {
     char color[5];
 };
 
-
-
 void seed(void);
 char *randomword(int);
 int readfile(char*);
+void gameloop(char*);
 bool isin(char, char *);
 void Example_printing_the_results(Result[]);
 Result *checkword(char *, char *);
@@ -53,8 +51,8 @@ void Example_printing_the_results(Result res[])
         }
 }
 
-
-char *randomword(int m) {
+char *randomword(int m)
+{
     int x;
     static char ret[8];
     x = rand() % m;
@@ -64,7 +62,7 @@ char *randomword(int m) {
     ret[2] = words[x][2];
     ret[3] = words[x][3];
     ret[4] = words[x][4];
-    ret[5] = 0; 
+    ret[5] = 0;
 
     return ret;
 }
@@ -99,7 +97,6 @@ Result checkchar(char guess, int idx, char *word)
     return ResultRed;
 }
 
-
 int readfile(char *filename)
 {
 
@@ -111,48 +108,46 @@ int readfile(char *filename)
     {
         perror("fopen");
         return -1;
-   }
-
+    }
 
     size = max * 5;
 
-        i=0;
-        memset(buf, 0, 8);
-        while (fgets(buf, 7, fd))
+    i = 0;
+    memset(buf, 0, 8);
+    while (fgets(buf, 7, fd))
+    {
+        size = strlen(buf);
+        if (size < 1)
         {
-            size = strlen(buf);
-            if (size < 1)
-            {
-                memset(buf, 0, 8);
-                continue;
-            }
-
-            size--;
-            buf[size] = 0;
-
-            if (size != 5)
-            {
-                memset(buf, 0, 8);
-                continue;
-            }
-            words[i][0] = buf[0];
-            words[i][1] = buf[1];
-            words[i][2] = buf[2];
-            words[i][3] = buf[3];
-            words[i][4] = buf[4];
-
             memset(buf, 0, 8);
-            i++;
-
-            if (max <= i)
-            {
-                break;
-            }
+            continue;
         }
 
-        fclose(fd);
-        return i;
+        size--;
+        buf[size] = 0;
 
+        if (size != 5)
+        {
+            memset(buf, 0, 8);
+            continue;
+        }
+        words[i][0] = buf[0];
+        words[i][1] = buf[1];
+        words[i][2] = buf[2];
+        words[i][3] = buf[3];
+        words[i][4] = buf[4];
+
+        memset(buf, 0, 8);
+        i++;
+
+        if (max <= i)
+        {
+            break;
+        }
+    }
+
+    fclose(fd);
+    return i;
 }
 Result *checkword(char *guess, char *word)
 {
@@ -166,28 +161,38 @@ Result *checkword(char *guess, char *word)
     return res;
 }
 
-
 void seed()
 {
     int x;
-    x= getpid();
+    x = getpid();
     srand(x);
 
     return;
 }
 
+void gameloop(char *correct)
+{
+
+
+
+
+}
 
 int main(int argc, char *argv[])
 {
     int n;
+
+
+    char *p;
     seed();
     n = readfile("wl5.txt");
-    if(n < 0) {
-        printf("No words found\n");
+    assert(!(n < 0));
+    p=randomword(n);
+    continuation = true;
+    while(continuation)
+    {
+        gameloop(p);
     }
-    else {
-            printf("word %s \n", randomword(n));
-    }
-    return 0;
 
+    return 0;
 }
