@@ -30,7 +30,39 @@ Result checkchar(char, int, char *);
 
 int main(int, char **);
 static char words[max][5];
+
+
+
+void prompt(bool correctness[5]) {
+    
+    int i;
+    for (i = 0; i < 5; i++)
+        switch (res[i])
+        {
+        case ResultGreen:
+            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+            break;
+        case ResultYellow:
+            printf("%s%c%s", ClrYellow, guess[i], ClrStop);
+            break;
+            break;
+        case ResultRed:
+            printf("%s%c%s", ClrRed, guess[i], ClrStop);
+            break;
+            break;
+        default:
+            printf("Unknown %d\n", res[i]);
+            break;
+        }
+        printf("\n");
+}
+    
+}
+
+
+
 void Example_printing_the_results(Result *res, char *guess, char *correct)
+
 {
     int i;
     for (i = 0; i < 5; i++)
