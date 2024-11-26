@@ -24,26 +24,28 @@ char *randomword(int);
 int readfile(char*);
 void gameloop(char*);
 bool isin(char, char *);
-void Example_printing_the_results(Result[]);
+void Example_printing_the_results(Result*, char*, char*);
 Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char **);
 static char words[max][5];
-void Example_printing_the_results(Result res[])
+void Example_printing_the_results(Result *res, char *guess, char *correct)
 {
     int i;
     for (i = 0; i < 5; i++)
         switch (res[i])
         {
         case ResultGreen:
-            printf("%s\n", "Green");
+            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
             break;
         case ResultYellow:
-            printf("%s\n", "Yellow");
+            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+            break;
             break;
         case ResultRed:
-            printf("%s\n", "Red");
+            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+            break;
             break;
         default:
             printf("Unknown %d\n", res[i]);
