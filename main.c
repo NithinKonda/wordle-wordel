@@ -40,17 +40,18 @@ void Example_printing_the_results(Result *res, char *guess, char *correct)
             printf("%s%c%s", ClrGreen, guess[i], ClrStop);
             break;
         case ResultYellow:
-            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+            printf("%s%c%s", ClrYellow, guess[i], ClrStop);
             break;
             break;
         case ResultRed:
-            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+            printf("%s%c%s", ClrRed, guess[i], ClrStop);
             break;
             break;
         default:
             printf("Unknown %d\n", res[i]);
             break;
         }
+        printf("\n");
 }
 
 char *randomword(int m)
