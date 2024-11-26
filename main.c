@@ -19,47 +19,37 @@ struct s_result
     char color[5];
 };
 
+void prompt(bool *, char *);
 void seed(void);
 char *randomword(int);
-int readfile(char*);
-void gameloop(char*);
+int readfile(char *);
+void gameloop(char *);
 bool isin(char, char *);
-void Example_printing_the_results(Result*, char*, char*);
+void Example_printing_the_results(Result *, char *, char *);
 Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char **);
 static char words[max][5];
 
+void prompt(bool *correctness[5], char *correctword)
+{
 
-
-void prompt(bool correctness[5]) {
-    
     int i;
     for (i = 0; i < 5; i++)
-        switch (res[i])
+        switch (correctness[i])
         {
-        case ResultGreen:
-            printf("%s%c%s", ClrGreen, guess[i], ClrStop);
+        case false:
+            printf("-");
             break;
-        case ResultYellow:
+        case true:
             printf("%s%c%s", ClrYellow, guess[i], ClrStop);
-            break;
-            break;
-        case ResultRed:
-            printf("%s%c%s", ClrRed, guess[i], ClrStop);
-            break;
-            break;
-        default:
-            printf("Unknown %d\n", res[i]);
+            printf("%c", correctness[i]);
             break;
         }
-        printf("\n");
+    printf("\n\n>");
+    fflush(stdout);
 }
-    
-}
-
-
 
 void Example_printing_the_results(Result *res, char *guess, char *correct)
 
@@ -83,7 +73,7 @@ void Example_printing_the_results(Result *res, char *guess, char *correct)
             printf("Unknown %d\n", res[i]);
             break;
         }
-        printf("\n");
+    printf("\n");
 }
 
 char *randomword(int m)
@@ -207,24 +197,19 @@ void seed()
 
 void gameloop(char *correct)
 {
-
-
-
-
 }
 
 int main(int argc, char *argv[])
 {
     int n;
 
-
     char *p;
     seed();
     n = readfile("wl5.txt");
     assert(!(n < 0));
-    p=randomword(n);
+    p = randomword(n);
     continuation = true;
-    while(continuation)
+    while (continuation)
     {
         gameloop(p);
     }
