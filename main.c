@@ -13,6 +13,7 @@
 // }
 typedef char Result;
 bool continuation;
+int rounds;
 
 struct s_result
 {
@@ -197,17 +198,21 @@ void seed()
 
 void gameloop(char *correct)
 {
+
 }
 
 int main(int argc, char *argv[])
 {
     int n;
-
     char *p;
+    rounds = 0;
     seed();
+
     n = readfile("wl5.txt");
     assert(!(n < 0));
     p = randomword(n);
+    printf("-----\n\n>");
+    fflush(stdout);
     continuation = true;
     while (continuation)
     {
