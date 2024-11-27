@@ -48,38 +48,17 @@ Result checkchar(char, int, char *);
 int main(int, char **);
 
 
-ValResult validator(char *word)
-{
-    int n;
-    bool ret;
-
-    bool strcmp_(char *s1, char *s2)
-    {
-        int s;
-        s = 0;
-        for (int i = 0; i < 5; i++)
-        {
-            if (s1[i] == s2[i])
-                s++;
-        }
-        return (s == 5) ? true : false;
-    }
-    n = strlen(word);
-    if (n != 5)
+ValResult validator(char *word) {
+    int n = strlen(word);
+    if (n != 5) {
         return ValBadInput;
-    return false;
-    for (int i = 0; i < max; i++)
-    {
-        if (strcmp_(words[i], word))
-        {
-            ret = true;
-            break;
+    }
+    for (int i = 0; i < max; i++) {
+        if (strncmp(words[i], word, 5) == 0) {
+            return ValOk;
         }
     }
-    if (ret)
-        return ValOk;
-    else
-        return ValNoSuchWord;
+    return ValNoSuchWord;
 }
 
 void prompt( char *correctword)
