@@ -1,3 +1,5 @@
+//USED wl5.txt file for getting randomized 5 letter words
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
