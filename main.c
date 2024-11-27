@@ -10,15 +10,21 @@
 #define ValOk 0
 #define ValBadInput 1
 #define ValNoSuchWord 2
+#define ClrGreen "\x1b[32m"
+#define ClrRed "\x1b[31m"
+#define ClrYellow "\x1b[33m"
+#define ClrStop "\x1b[0m"
 // struct s_word {
 //     char word[8];
 // }
 
 typedef char ValResult;
 typedef char Result;
+static char words[max][5];
 bool continuation;
 int rounds;
 bool corrects[5];
+bool win;
 
 struct s_result
 {
@@ -38,7 +44,7 @@ Result *checkword(char *, char *);
 Result checkchar(char, int, char *);
 
 int main(int, char **);
-static char words[max][5];
+
 
 ValResult validator(char *word)
 {
@@ -293,6 +299,7 @@ void gameloop(char *correct)
         continuation = false;
         return;
     }
+    return;
 }
 
 int main(int argc, char *argv[])
@@ -305,6 +312,7 @@ int main(int argc, char *argv[])
     corrects[3] = false;
     corrects[4] = false;
     rounds = 0;
+    win = false;
 
     seed();
 
@@ -318,6 +326,12 @@ int main(int argc, char *argv[])
     {
         gameloop(p);
     }
-
+    printf("The correct word is %s",p);
+    if(win){
+        printf("\nYou win!");
+    }
+    else{
+        printf("\nYou lose!");
+    }
     return 0;
 }
