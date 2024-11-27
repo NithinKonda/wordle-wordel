@@ -13,6 +13,9 @@
 // struct s_word {
 //     char word[8];
 // }
+
+
+typedef char ValResult;
 typedef char Result;
 bool continuation;
 int rounds;
@@ -23,7 +26,7 @@ struct s_result
     char color[5];
 };
 
-
+ValResult validator(char*);
 char *readline(void);
 void prompt(char *);
 void seed(void);
@@ -37,6 +40,16 @@ Result checkchar(char, int, char *);
 
 int main(int, char **);
 static char words[max][5];
+
+
+
+ValResult validator(char *word) {
+int n;
+n = strlen(word);
+if (n!=5)
+    return ValBadInput;
+
+}
 
 void prompt(bool *correctness[5], char *correctword)
 {
