@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <assert.h>
+#include <errno.h>
 #define ResultGreen 1
 #define ResultYellow 2
 #define ResultRed 5
@@ -33,7 +35,7 @@ struct s_result
 
 ValResult validator(char *);
 char *readline(void);
-void prompt(char *);
+void prompt(char*);
 void seed(void);
 char *randomword(int);
 int readfile(char *);
@@ -53,7 +55,7 @@ ValResult validator(char *word)
 
     bool strcmp_(char *s1, char *s2)
     {
-        int s, i;
+        int s;
         s = 0;
         for (int i = 0; i < 5; i++)
         {
@@ -65,8 +67,8 @@ ValResult validator(char *word)
     n = strlen(word);
     if (n != 5)
         return ValBadInput;
-    ret false;
-    for (i = 0; i < max; i++)
+    return false;
+    for (int i = 0; i < max; i++)
     {
         if (strcmp_(words[i], word))
         {
@@ -80,19 +82,19 @@ ValResult validator(char *word)
         return ValNoSuchWord;
 }
 
-void prompt(bool *correctness[5], char *correctword)
+void prompt( char *correctword)
 {
 
     int i;
     for (i = 0; i < 5; i++)
-        switch (correctness[i])
+        switch (correctword[i])
         {
         case false:
             printf("-");
             break;
         case true:
-            printf("%s%c%s", ClrYellow, guess[i], ClrStop);
-            printf("%c", correctness[i]);
+           
+            printf("%c", correctword[i]);
             break;
         }
     printf("\n\n%d>", rounds);
@@ -287,6 +289,7 @@ void gameloop(char *correct)
             c++;
         }
     }
+    Example_printing_the_results(res,input,correct);
     if (c == 5)
     {
         win = true;
