@@ -14,13 +14,14 @@
 typedef char Result;
 bool continuation;
 int rounds;
+bool corrects[5];
 
 struct s_result
 {
     char color[5];
 };
 
-void prompt(bool *, char *);
+void prompt(char *);
 void seed(void);
 char *randomword(int);
 int readfile(char *);
@@ -196,8 +197,23 @@ void seed()
     return;
 }
 
+
+char *readline(){
+    static char buf[8];
+    int size;
+    memset(buf,0,8);
+    fgets(buf,7,stdin);
+    size = strlen(buf);
+    assert(size>0);
+    size--;
+    buf[size] =0;
+    return buf;
+}
+
+
 void gameloop(char *correct)
 {
+    prompt(correct);
 
 }
 
@@ -205,7 +221,13 @@ int main(int argc, char *argv[])
 {
     int n;
     char *p;
+    corrects[0] = false;
+    corrects[1] = false;
+    corrects[2] = false;
+    corrects[3] = false;
+    corrects[4] = false;
     rounds = 0;
+
     seed();
 
     n = readfile("wl5.txt");
