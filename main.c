@@ -7,7 +7,9 @@
 #define ResultYellow 2
 #define ResultRed 5
 #define max 5195
-
+#define ValOk 0
+#define ValBadInput 1
+#define ValNoSuchWord 2
 // struct s_word {
 //     char word[8];
 // }
@@ -21,6 +23,8 @@ struct s_result
     char color[5];
 };
 
+
+char *readline(void);
 void prompt(char *);
 void seed(void);
 char *randomword(int);
@@ -213,7 +217,12 @@ char *readline(){
 
 void gameloop(char *correct)
 {
+    char *input;
+    Result *res;
     prompt(correct);
+    input = readline();
+
+    res= checkword(input, correct);
 
 }
 
