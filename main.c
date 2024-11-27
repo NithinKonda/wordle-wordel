@@ -14,7 +14,6 @@
 //     char word[8];
 // }
 
-
 typedef char ValResult;
 typedef char Result;
 bool continuation;
@@ -26,7 +25,7 @@ struct s_result
     char color[5];
 };
 
-ValResult validator(char*);
+ValResult validator(char *);
 char *readline(void);
 void prompt(char *);
 void seed(void);
@@ -41,14 +40,38 @@ Result checkchar(char, int, char *);
 int main(int, char **);
 static char words[max][5];
 
+ValResult validator(char *word)
+{
+    int n;
+    bool ret;
 
-
-ValResult validator(char *word) {
-int n;
-n = strlen(word);
-if (n!=5)
-    return ValBadInput;
-
+    bool strcmp_(char *s1, char *s2)
+    {
+        int s, i;
+        s = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            if (s1[i] == s2[i])
+                s++;
+        }
+        return (s == 5) ? true : false;
+    }
+    n = strlen(word);
+    if (n != 5)
+        return ValBadInput;
+    ret false;
+    for (i = 0; i < max; i++)
+    {
+        if (strcmp_(words[i], word))
+        {
+            ret = true;
+            break;
+        }
+    }
+    if (ret)
+        return ValOk;
+    else
+        return ValNoSuchWord;
 }
 
 void prompt(bool *correctness[5], char *correctword)
@@ -66,7 +89,7 @@ void prompt(bool *correctness[5], char *correctword)
             printf("%c", correctness[i]);
             break;
         }
-    printf("\n\n>");
+    printf("\n\n%d>", rounds);
     fflush(stdout);
 }
 
@@ -134,6 +157,7 @@ Result checkchar(char guess, int idx, char *word)
     correct = word[idx];
     if (guess == correct)
     {
+        corrects[idx] = true;
         return ResultGreen;
     }
     else if (isin(guess, word))
@@ -214,29 +238,61 @@ void seed()
     return;
 }
 
-
-char *readline(){
+char *readline()
+{
     static char buf[8];
     int size;
-    memset(buf,0,8);
-    fgets(buf,7,stdin);
+    memset(buf, 0, 8);
+    fgets(buf, 7, stdin);
     size = strlen(buf);
-    assert(size>0);
+    assert(size > 0);
     size--;
-    buf[size] =0;
+    buf[size] = 0;
     return buf;
 }
-
 
 void gameloop(char *correct)
 {
     char *input;
     Result *res;
+    ValResult valres;
+    int i, c;
     prompt(correct);
     input = readline();
+    valres = validator(input);
+    switch (valres)
+    {
+    case ValBadInput:
+        printf("%s\n", " ValBadInput");
+        return;
+    case ValNoSuchWord:
+        printf("%s\n", " ValNoSuchWord");
+        rounds++;
+        return;
 
-    res= checkword(input, correct);
-
+    default:
+        break;
+    }
+    res = checkword(input, correct);
+    for (i = c = 0; i < 5; i++)
+    {
+        if (corrects[i])
+        {
+            c++;
+        }
+    }
+    if (c == 5)
+    {
+        win = true;
+        continuation = false;
+        return;
+    }
+    rounds++;
+    if(rounds > 4){
+        win = false;
+        continuation = false;
+        return;
+    }
 }
 
 int main(int argc, char *argv[])
