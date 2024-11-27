@@ -265,13 +265,14 @@ void gameloop(char *correct)
     Result *res;
     ValResult valres;
     int i, c;
+    // printf("FOR DEBUGGING THE CORRECT WORD IS: %s", correct);
     prompt(correct);
     input = readline();
     valres = validator(input);
     switch (valres)
     {
     case ValBadInput:
-        printf("%s\n", " ValBadInput");
+        printf("%s\n", " no such word");
         return;
     case ValNoSuchWord:
         printf("%s\n", " ValNoSuchWord");
@@ -331,10 +332,10 @@ int main(int argc, char *argv[])
     }
     printf("The correct word is %s",p);
     if(win){
-        printf("\nYou win!");
+        printf("\nYou win!\n");
     }
     else{
-        printf("\nYou lose!");
+        printf("\nYou lose!\n");
     }
     return 0;
 }
